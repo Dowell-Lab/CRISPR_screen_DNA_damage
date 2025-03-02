@@ -1,0 +1,20 @@
+These scripts take in the count files and processes counts into phenotypes, separately for the basal screen and for IR analysis. The analysis contains the following steps:
+
+- Filtering and normalization:
+    - Raw counts below 10 are discarded, then a pseudocount of 1 is added to all values
+    - Counts are normalized to total counts for each sample
+    - Fold changes are calculated as Day 14 counts / Day 0 counts (or Day 15 / Day 0 in the case of irradiated data)
+- Single-guide and single-gene fold changes:
+    - All guides paired with nontargeting (nt) sequences are separated out by gene (4 guides per gene)
+    - Fold changes for each guide-nt pair are compared to the set of all guide-nt pair fold changes for each gene to determine and remove outliers (p < 0.1)
+    - Fold changes for all remaining guide-nt pairs are averaged for each guide and for each gene
+- Predicted phenotypes:
+    - Fold changes are multiplied for each guide in a guide-guide pair or gene in a gene-gene pair
+    - Phenotypes are calculated as log2(fold change product)
+- Observed phenotypes:
+    - Fold changes are averaged for all guide-guide pairs in a gene-gene pair (typically eight, though initial filtering of lowly-observed guide-guide pairs led to fewer in many cases)
+    - Observed phenotypes are calculated as log2(observed gene-gene fold change)
+- Stats:
+    - Z-scores and p-values are calculated for each gene1-gene2 pair in relation to the distribution of all gene1-geneX pairs
+        - Note: z-scores and p-values depend on which gene was designated gene1
+    - To account for this variation, p-values are multiplied for the gene1-gene2 and gene2-gene1 pairs to yield a 'combined p-value'.

@@ -1,0 +1,1 @@
+These count files were generated using the scripts in step 1. Each row is a guide-guide pair and columns contain raw observed counts for that guide pair in each sample. The IR replicates are paired with the corresponding day0 replicates (rep1, rep2) in the basal screen.
