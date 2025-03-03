@@ -6,7 +6,8 @@ These scripts take in the count files and processes counts into phenotypes, sepa
     - Fold changes are calculated as Day 14 counts / Day 0 counts (or Day 15 / Day 0 in the case of irradiated data)
 - Single-guide and single-gene fold changes:
     - All guides paired with nontargeting (nt) sequences are separated out by gene (4 guides per gene)
-    - Fold changes for each guide-nt pair are compared to the set of all guide-nt pair fold changes for each gene to determine and remove outliers (p < 0.1)
+    - Fold changes for each guide-nt pair are compared to the set of all guide-nt pair fold changes for each gene to determine and remove outliers (t-test, p < 0.1)
+        - Note: This test/cutoff is fairly arbitrary but is successful in removing a small number of oddly-behaving guides
     - Fold changes for all remaining guide-nt pairs are averaged for each guide and for each gene
 - Predicted phenotypes:
     - Fold changes are multiplied for each guide in a guide-guide pair or gene in a gene-gene pair
